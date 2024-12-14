@@ -1,0 +1,49 @@
+.notification-container {
+    position: fixed;
+    top: 20px; /* Đẩy lên trên cách 20px */
+    right: 20px; /* Đặt ở mép phải */
+    cursor: pointer;
+    z-index: 1000; /* Đảm bảo chuông nằm trên các thành phần khác */
+}
+.notification-bell {
+    font-size: 30px; /* Kích thước biểu tượng */
+    color: #333; /* Màu sắc */
+}
+
+
+.notification-list {
+    display: none; /* Ẩn danh sách mặc định */
+    position: absolute; /* Đặt danh sách dựa vào vị trí của chuông */
+    top: 40px; /* Đẩy danh sách xuống dưới chuông (khoảng cách từ chuông) */
+    right: 0; /* Canh phải theo chuông */
+    background: white; /* Nền trắng cho danh sách */
+    border: 1px solid #ccc; /* Đường viền */
+    border-radius: 4px; /* Bo góc */
+    width: 300px; /* Độ rộng danh sách */
+    max-height: 300px; /* Chiều cao tối đa */
+    overflow-y: auto; /* Cuộn dọc nếu quá dài */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Đổ bóng */
+    z-index: 999; /* Nằm trên mọi thành phần */
+}
+.notification-item {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+.notification-item1 {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+.notification-item:last-child {
+    border-bottom: none;
+}
+.notification-dot {
+    position: absolute;
+    top: 10px; /* Đặt vị trí chấm đỏ gần chuông */
+    right: 10px; /* Đặt chấm đỏ sát bên phải */
+    width: 10px;
+    height: 10px;
+    background-color: red; /* Màu đỏ */
+    border-radius: 50%; /* Tạo hình tròn */
+    display: none; /* Mặc định ẩn */
+    z-index: 1001; /* Nằm trên chuông */
+}

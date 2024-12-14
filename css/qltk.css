@@ -1,0 +1,208 @@
+/* General form styling */
+
+.my-form h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #444;
+}
+
+.my-form p {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #666;
+}
+
+/* Logo */
+.logo {
+    display: block;
+    margin: 0 auto 1rem auto;
+    max-width: 120px;
+}
+
+/* Input wrapper */
+.input__wrapper {
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.input__wrapper input,
+.input__wrapper select {
+    width: 100%;
+    padding: 0.75rem 2.5rem 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: border-color 0.3s ease;
+}
+
+.input__wrapper input:focus,
+.input__wrapper select:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
+}
+
+.input__wrapper label {
+    font-size: 0.9rem;
+    color: #555;
+    display: block;
+    margin-top: 0.5rem;
+}
+
+.input__wrapper #icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: #999;
+    pointer-events: none;
+}
+
+/* Password toggle eye icon */
+.input__wrapper #eye,
+.input__wrapper #eye1 {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #999;
+}
+
+/* Select dropdown */
+.input__wrapper select {
+    appearance: none;
+    background: #fff url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%23999' d='M0 3h10L5 8z'/%3E%3C/svg%3E") no-repeat right 1rem center;
+    background-size: 10px;
+}
+
+/* Button styling */
+.my-form__button {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.my-form__button:hover {
+    background-color: #0056b3;
+}
+
+/* Links and actions */
+.my-form__actions {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+.my-form__actions span {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.my-form__actions a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 0.3rem;
+}
+
+.my-form__actions a:hover {
+    text-decoration: underline;
+}
+/* Modal background */
+/* Modal background */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto; /* Allows scrolling if content is too tall */
+}
+
+/* Modal content */
+.modal-content {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 1000px; /* Set a maximum width */
+    max-height: 90%; /* Limit height to 90% of the viewport */
+    overflow-y: auto; /* Enable scrolling inside the modal if content overflows */
+    position: relative;
+    animation: fadeIn 0.3s;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Add a shadow for better visibility */
+}
+
+/* Close button */
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5rem;
+    color: #333;
+    cursor: pointer;
+}
+
+/* Button to open the modal */
+.open-modal-btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.open-modal-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Optional: Body scroll lock when modal is open */
+body.modal-open {
+    overflow: hidden;
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+    .my-form {
+        padding: 1.5rem;
+    }
+
+    .my-form h1 {
+        font-size: 1.25rem;
+    }
+
+    .my-form__button {
+        font-size: 0.9rem;
+    }
+}

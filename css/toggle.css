@@ -1,0 +1,38 @@
+.toggle-label {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+    width: 60px;
+    height: 30px;
+    cursor: pointer;
+    background: #ccc;
+    border-radius: 30px;
+    transition: background 0.5s ease;
+  }
+
+  .toggle-label::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 50%;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+
+  input[type="checkbox"]:checked + .toggle-label {
+    background: #ffa94c;
+  }
+
+  input[type="checkbox"]:checked + .toggle-label::before {
+    transform: translateY(-50%) translateX(30px);
+    background: #ffe066;
+  }
+
+  input[type="checkbox"] {
+    display: none;
+  }
