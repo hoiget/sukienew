@@ -101,7 +101,102 @@ session_start();
 
         <button type="submit" onclick="showlogi()" class="my-form__button"> Đăng nhập </button> 
         <div class="socials-row"> 
-      
+        <?php
+require_once './google/vendor/autoload.php';
+
+
+
+
+
+include_once("./api/connect.php");
+// Khởi tạo Google Client
+$client = new Google_Client();
+// $client->setClientId('xxx');
+// $client->setClientSecret('xxxx');
+$client->setRedirectUri('http://localhost/duan/dangnhap.php');
+$client->addScope('email');
+$client->addScope('profile');
+// Xác thực mã từ Google
+if (isset($_GET['code'])) {
+    $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
+    $client->setAccessToken($token['access_token']);
+
+    // Lấy thông tin người dùng từ Google
+    $googleService = new Google_Service_Oauth2($client);
+    $googleUser = $googleService->userinfo->get();
+
+    $email = $googleUser->email;
+    $name = $googleUser->name;
+
+    // Kiểm tra xem người dùng đã tồn tại chưa
+    $query = $conn->prepare("SELECT * FROM users WHERE email = ?");
+    $query->bind_param("s", $email);
+    $query->execute();
+    $result = $query->get_result();
+
+    if ($result->num_rows > 0) {
+        // Người dùng đã tồn tại, lấy thông tin
+        $user = $result->fetch_assoc();
+    } else {
+        // Người dùng chưa tồn tại, thêm mới
+        $username = explode('@', $email)[0];
+        $role = 'guest'; // Mặc định role là 'user'
+        $insert = $conn->prepare("INSERT INTO users (username, hoten,email, role) VALUES (?, ?, ?, ?)");
+        $insert->bind_param("ssss", $username, $name, $email, $role);
+        $insert->execute();
+
+        $newUserId = $conn->insert_id; // Lấy ID của người dùng vừa thêm
+        $query = $conn->prepare("SELECT * FROM users WHERE id = ?");
+        $query->bind_param("i", $newUserId);
+        $query->execute();
+        $result = $query->get_result();
+
+        if ($result->num_rows > 0) {
+            $user = $result->fetch_assoc();
+
+            // Thêm vào bảng tích điểm
+            $Diem = 100; // Giá trị điểm khởi tạo, có thể là số khác nếu cần
+            $insert_query1 = $conn->prepare("INSERT INTO tichdiem (Iduser, Diem) VALUES (?, ?)");
+            $insert_query1->bind_param("ii", $newUserId, $Diem);
+            $insert_query1->execute();
+
+            // Tạo session cho người dùng
+            session_start();
+            $_SESSION['email'] = $user['email'];
+            $_SESSION['role'] = $user['role'];
+            $_SESSION['phone_number'] = $user['phone_number'] ?? ''; // Giá trị mặc định nếu chưa có
+            $_SESSION['address'] = $user['address'] ?? ''; // Giá trị mặc định nếu chưa có
+            $_SESSION['id'] = $user['id'];
+            $_SESSION['hoten'] = $user['hoten'];
+            $_SESSION['username'] = $user['username'];
+
+            // Chuyển hướng đến trang chính
+            header("Location: index.php");
+            exit();
+        } else {
+            // Trường hợp bất thường, không tìm thấy người dùng vừa thêm
+            die("Lỗi: Không thể đăng nhập với thông tin người dùng vừa thêm.");
+        }
+    }
+
+    // Tạo session cho người dùng
+    session_start();
+    $_SESSION['email'] = $user['email'];
+    $_SESSION['role'] = $user['role'];
+    $_SESSION['phone_number'] = $user['phone_number'];
+    $_SESSION['address'] = $user['address'];
+    $_SESSION['id'] = $user['id'];
+    $_SESSION['hoten'] = $user['hoten'];
+    $_SESSION['username'] = $user['username'];
+
+    // Chuyển hướng đến trang chính
+    header("Location: index.php");
+    exit();
+} 
+
+// Tạo URL đăng nhập
+$loginUrl = $client->createAuthUrl();
+?>
             <a href="<?php echo htmlspecialchars($loginUrl); ?>" title="Use Google"> 
             <img src="./assets/geo.png" width="25px" height="25px" alt="Google">Đăng nhập bằng google </a> 
           
